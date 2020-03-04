@@ -12,13 +12,13 @@ import java.util.List;
 
 public class SecondHomeWork {
 
-    private By articleElementTag = By.tagName("article");
-    private By articleTitleElement = By.xpath(".//h1[contains(@class,'headline__title')]");
-    private By commentCountElement = By.xpath(".//a[contains(@class, 'comment-count')]"); // jaraksta camelcase
-    private By articlePageTitleElement = By.xpath(".//h1[contains(@class,'d-inline')]");
-    private By articlePageCommentElements = By.xpath(".//a[contains(@class, 'text-red-ribbon')]");
-    private By commentPageTheArticleTitleElement = By.xpath(".//h1[@class= 'article-title']");
-    private By comentPageTheCommentCountElements = By.xpath(".//span[@class= 'type-cnt']");
+    private By ARTICLE_ELEMENT_TAG = By.tagName("article"); // constantas
+    private By ARTICLE_TITLE_ELEMENT = By.xpath(".//h1[contains(@class,'headline__title')]");
+    private By COMMENT_COUNT_ELEMENT  = By.xpath(".//a[contains(@class, 'comment-count')]");
+    private By ARTICLE_PAGE_TITLE_ELEMENT = By.xpath(".//h1[contains(@class,'d-inline')]");
+    private By ARTICLE_PAGE_COMMENT_ELEMENT = By.xpath(".//a[contains(@class, 'text-red-ribbon')]");
+    private By COMMENT_PAGE_ARTICLE_TITLES_ELEMENT = By.xpath(".//h1[@class= 'article-title']");
+    private By COMMNET_PAGE_COMMENT_COUNT_ELEMENT = By.xpath(".//span[@class= 'type-cnt']");
 
     private final Logger LOGGER = LogManager.getLogger(FirstWebTest.class);
     private WebDriver driver; // null
@@ -31,12 +31,12 @@ public class SecondHomeWork {
         driver.get("https://rus.delfi.lv");
 
         LOGGER.info("Find 2st Article element");
-        List<WebElement> allArticles = driver.findElements(articleElementTag);
+        List<WebElement> allArticles = driver.findElements(ARTICLE_ELEMENT_TAG);
         WebElement secondArticle = allArticles.get(1);
         LOGGER.info("Get second article title text");
-        String articleTitleText = secondArticle.findElement(articleTitleElement).getText().replaceAll("\"", "").trim();
+        String articleTitleText = secondArticle.findElement(ARTICLE_TITLE_ELEMENT).getText().replaceAll("\"", "").trim();
         LOGGER.info("Get second article title comment count");
-        List<WebElement> commentCountElements = secondArticle.findElements(commentCountElement);
+        List<WebElement> commentCountElements = secondArticle.findElements(COMMENT_COUNT_ELEMENT);
         LOGGER.info("Get and save article page count element text");
         String titleCommentCount = "0";
         if (!commentCountElements.isEmpty()) {
@@ -51,12 +51,12 @@ public class SecondHomeWork {
         secondArticle.click();
 
         LOGGER.info(  "Into artital page find article title element");
-        WebElement articlePageTitle = driver.findElement(articlePageTitleElement);
+        WebElement articlePageTitle = driver.findElement(ARTICLE_PAGE_TITLE_ELEMENT);
         LOGGER.info("Get and save the artical page title's text");
         String articlePageTitleText = articlePageTitle.getText().replaceAll("\"", "").trim();
 
         LOGGER.info("Into artital page find comments article's title element");
-        List<WebElement> articleTitleCommentsElements = driver.findElements(articlePageCommentElements);
+        List<WebElement> articleTitleCommentsElements = driver.findElements(ARTICLE_PAGE_COMMENT_ELEMENT);
         LOGGER.info("get the article page count elemen's text");
         String articlePageCommentCount = "0";
         if (!articleTitleCommentsElements.isEmpty()) {
@@ -83,7 +83,7 @@ public class SecondHomeWork {
         }
 
         LOGGER.info("Find comments article's title element");
-        WebElement articleCommentTitle = driver.findElement(commentPageTheArticleTitleElement);
+        WebElement articleCommentTitle = driver.findElement(COMMENT_PAGE_ARTICLE_TITLES_ELEMENT);
         LOGGER.info("Get and save element text");
         String articleCommentTitleText = articleCommentTitle.getText().replaceAll("'", "");
         LOGGER.info("articleCommentTitleText " + articleCommentTitleText);
@@ -93,7 +93,7 @@ public class SecondHomeWork {
 
 
         LOGGER.info("Find the anonumus comment's count element and save it");
-        List<WebElement> articleCommentCountAnonimusElements = driver.findElements(comentPageTheCommentCountElements);
+        List<WebElement> articleCommentCountAnonimusElements = driver.findElements(COMMNET_PAGE_COMMENT_COUNT_ELEMENT);
         String articleCommentCountAnonimusElementText = articleCommentCountAnonimusElements.get(0).getText();
         LOGGER.info("string to int");
         articleCommentCountAnonimusElementText = articleCommentCountAnonimusElementText.replaceAll("[^0-9]","");
@@ -101,7 +101,7 @@ public class SecondHomeWork {
         LOGGER.info("The anonimus commnet count in artical : " + toIntarticlelCommentCountAnonim);
 
         LOGGER.info("Find the registrated comment's count element and save it");
-        List<WebElement> articleCommentCountregistratedElements = driver.findElements(comentPageTheCommentCountElements);
+        List<WebElement> articleCommentCountregistratedElements = driver.findElements(COMMNET_PAGE_COMMENT_COUNT_ELEMENT);
         String articleCommentCountregistratedElementText = articleCommentCountregistratedElements.get(1).getText();
         LOGGER.info("string to int");
         articleCommentCountregistratedElementText = articleCommentCountregistratedElementText.replaceAll("[^0-9]","");
